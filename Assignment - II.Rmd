@@ -1,0 +1,185 @@
+---
+title: "Assignment - II"
+author: "Thirunavukarasan A"
+date: "03/09/2022"
+output: html_document
+---
+
+```{r}
+library(ISLR)
+library(MASS)
+```
+
+#Installing the packages ISLR and MASS 
+
+1. In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results.rnorm
+
+a.	Using the rnorm() function, create a vector, “x”, containing 100 observations drawn from a N(0,1) distribution. This represents a feature, X.
+
+# Create a vector with values and random distribution of 100 values
+
+Solution:
+```{r}
+set.seed(1)
+x <- rnorm(100)
+x
+```
+
+
+b. Using the rnorm() function, create a vector, eps, containing 100 observations drawn from a N(0, 0.25) distribution 
+
+Solution:
+
+#eps is vector with a standard deviation of 0.25
+#eps is variance which is a error value 
+
+```{r}
+eps = rnorm(100, mean =0, sd = 0.25)
+```
+
+
+c.	Using “x” and “eps”, generate a vector “y” according to the model   Y=−1+0.5X+ε.
+What is the length of the vector “y” ? What are the values of β0 and β1 in this linear model ?
+
+#the values of β0 =1 and β1 = 0.5
+#y=y=β0+β1x+e
+
+
+
+Solution:
+```{r}
+y = -1+0.5*x+eps
+length(y)
+```
+#y is 100 this is length of vector 
+
+d.	Create a scatterplot displaying the relationship between “x” and “y”. Comment on what you observe.
+
+Solution:
+```{r}
+plot(y~x)
+```
+#From the chart it is observed that for x and y it is a positive relationship and it is linear 
+#Maximum no. of values lies between 0 and 1
+
+
+e.	Fit a least squares linear model to predict “y” using “x”. Comment on the model obtained. How do β^0 and β^1 compare to β0 and β1 ?
+
+Solution:
+```{r}
+lm.fit = lm(y~x)
+summary(lm.fit)
+```
+
+
+
+f.	Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() function to create an appropriate legend.
+```{r}
+plot(y~x); 
+abline(lm.fit, col ="red") 
+abline(-1, 0.5, col = "blue")
+legend("topleft", c("Least Square", "Regression"), col = c("red", "blue"), lty = c(1, 1))
+
+```
+
+
+
+2.  This problem involves the “Boston” data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+
+#As the it is mentioned in the question it involves Boston data set we dont want to install Boston data set seperately
+#As the MASS package contains the Boston data set 
+
+
+```{r}
+Boston
+?Boston
+```
+
+
+a.	For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response ? Create some plots to back up your assertions.
+
+Solution:
+
+```{r}
+zn <- lm(crim ~ zn,Boston)
+summary(zn)
+```
+```{r}
+indus <- lm(crim ~ indus,Boston)
+summary(indus)
+```
+
+```{r}
+chas <- lm(crim ~ chas,Boston)
+summary(chas)
+```
+
+```{r}
+nox <- lm(crim ~ nox,Boston)
+summary(nox)
+```
+
+```{r}
+rm <- lm(crim ~ rm,Boston)
+summary(rm)
+```
+
+```{r}
+age <- lm(crim ~ age,Boston)
+summary(age)
+```
+
+```{r}
+dis <- lm(crim ~ dis,Boston)
+summary(dis)
+```
+
+```{r}
+rad <- lm(crim ~ rad,Boston)
+summary(rad)
+```
+
+```{r}
+tax <- lm(crim ~ tax,Boston)
+summary(tax)
+```
+
+```{r}
+ptratio <- lm(crim ~ ptratio,Boston)
+summary(ptratio)
+```
+
+```{r}
+black <- lm(crim ~ black,Boston)
+summary(black)
+```
+
+```{r}
+lstat <- lm(crim ~ lstat,Boston)
+summary(lstat)
+```
+
+```{r}
+medv <- lm(crim ~ medv,Boston)
+summary(medv)
+```
+#From the above we have have observed that the p-value of all predictors except chas are below 0.5 
+#From this we have understood that all predictors except chas are statistically significant as mentioned above in the question
+
+
+
+
+b.	Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis H0:βj=0 ?
+
+
+Solution:
+```{r}
+fit.bos <- lm(crim ~ .,Boston)
+fit.bos
+summary(fit.bos)
+```
+
+
+
+
